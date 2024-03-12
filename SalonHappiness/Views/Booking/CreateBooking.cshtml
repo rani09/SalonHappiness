@@ -1,0 +1,219 @@
+﻿@using SalonHappiness.Models
+@model SalonHappiness.ViewModels.Create_booking_viewmodel
+@{
+    ViewBag.Title = "Book tid";
+    Layout = "~/Views/Shared/_BookingLayout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div style="margin-bottom:15px; margin-top:15px">
+            <a class="navbar-brand logo_h" href="@Url.Action("CreateBooking", "Booking")"><img src="/Content/img/HappinesLogo.png" alt=""></a>
+        </div>
+        <div class="col-md-8">
+            <main class="main">
+                @using (Html.BeginForm("CreateBooking", "Booking", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "myForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="step-bar" tabindex="0" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1">
+                        <span class="step" aria-hidden="true"></span>
+                        <span class="step" aria-hidden="true"></span>
+                        <span class="step" aria-hidden="true"></span>
+                        <span class="step" aria-hidden="true"></span>
+                    </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="tab">
+                        <section class="survey__panel survey__panel--current">
+                            <h2 class="survey__panel__question">
+                                <i class="fas fa-user"></i> Behandler
+                            </h2>
+                            <hr />
+                            <div class="survey__panel__satisfaction">
+                                <fieldset class="msf_hide">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="blog_right_sidebar">
+                                            <aside class="single_sidebar_widget author_widget">
+                                                <img src="~/Content/img/alla.png" alt="avatar" class="author_img rounded-circle" width="90" height="90" />
+                                                <h4>
+                                                    <label class="radioChecked">
+                                                        <label class="labelteam">Alla (ejer) </label>
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </h4>
+                                            </aside>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab">
+                        <section class="survey__panel survey__panel--current">
+                            <h2 class="survey__panel__question">
+                                <i class="fas fa-list-ol"></i> Vælg service
+                            </h2>
+                            <hr />
+                            <div class="survey__panel__satisfaction">
+                                <div class="form-group">
+                                    <ul class="flex-container-box">
+                                        @for (int i = 0; i < Model.Services.Count(); i++)
+                                        {
+                                            <li class="main-box">
+                                                <span style="display:flex; flex-flow: row wrap; justify-content:space-between">
+                                                    <span id="check_container_div">
+                                                        @Html.HiddenFor(x => Model.Services[i].ServiceId)
+                                                        @Html.CheckBoxFor(x => Model.Services[i].IsActive, new { @class = "checkbox-validate", @id = Model.Services[i].Title })
+                                                        @Html.DisplayFor(x => Model.Services[i].Title)
+                                                    </span>
+                                                    <span>@Model.Services[i].Price DKK</span>
+                                                    <span>@Model.Services[i].Time min.</span>
+                                                </span>
+                                                @Html.Raw(Model.Services[i].Description)
+                                            </li>
+                                        }
+                                    </ul>
+                                    <span class="error-holder"></span>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                    <div class="tab">
+                        <section class="survey__panel survey__panel--current">
+                            <h2 class="survey__panel__question">
+                                <i class="fas fa-calendar-alt"></i> Vælg dato & tid
+                            </h2>
+                            <hr />
+                            <div class="survey__panel__personaldetails">
+                                <div class="row">
+                                    <ul class="flex-container-date">
+                                        <li class="flex-item-date">
+                                            <input type="text" onchange="myFunction()" id="datePicker" class="form-control" name="ArrivelDate" readonly required />
+                                            @*@Html.EditorFor(model => model.ArrivelDate, new { htmlAttributes = new { @id = "datePicker", @class = "form-control", @required = "required", @readonly = "readonly" } })*@
+                                            @Html.ValidationMessageFor(model => model.ArrivelDate, "", new { @class = "text-danger" })
+                                        </li>
+                                        <li class="flex-item-date">
+                                            <h6 style=" position: relative;padding: 0.5rem 1rem;color: #fff;background-color: #146c43;">
+                                                Ledige tider
+                                            </h6>
+                                            <input type="text" onchange="myFunction()" name="ArrivelTime" id="timePicker" class="form-control" required readonly />
+                                            @*@Html.EditorFor(model => model.ArrivelTime, new { htmlAttributes = new { @id = "timePicker", @class = "form-control", @required = "required", @readonly = "readonly" } })*@
+                                            @Html.ValidationMessageFor(model => model.ArrivelTime, "", new { @class = "text-danger" })
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab">
+                        @if (Request.IsAuthenticated)
+                        {
+                            <section class="survey__panel survey__panel--current">
+                                <h2 class="survey__panel__question">
+                                    <i class="fas fa-calendar-alt"></i> Bookings oplysninger
+                                </h2>
+                                <hr />
+                                <div class="survey__panel__personaldetails">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <strong>Logget ind som: </strong> @User.Identity.Name<br />
+                                            <strong>Behandler: </strong> Alla (ejer) <br />
+                                            <strong>Dato: </strong> <span id="date-result"></span><br />
+                                            <strong>Tid: </strong> <span id="time-result"></span><br />
+                                            <strong>Services: </strong><br />
+                                            <div class="comment">
+                                                <textarea class="textinput" readonly id="service-result"></textarea>
+                                            </div>
+                                        </div>
+                                        <p style="color:#000" class="alert alert-danger">
+                                            Du har endnu ikke bestilt tid, tryk venlig på "Indsend" knappen for at booke tiden nu. <br />
+                                            Ved at trykke på "Indsend" knappen acceptere du    <a href="" class="text-danger" data-toggle="modal" data-target="#betingelser">
+                                                Betingelserne
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </section>
+
+                        }
+                        else
+                        {
+                            <section class="survey__panel survey__panel--current">
+                                <h2 class="survey__panel__question">
+                                    <i class="fas fa-calendar-alt"></i> Log ind
+                                </h2>
+                                <hr />
+                                <div class="survey__panel__personaldetails">
+                                    <div class="row">
+                                        <div class="login_info">
+                                            <h4>Log ind for gennemføre booking tid</h4>
+                                            @Html.ActionLink("Log på", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        }
+
+                    </div>
+
+                    <div style="overflow:auto;">
+                        <div style="float:right; margin-top: 5px;">
+                            <button type="button" class="previous">Tilbage</button>
+                            <button type="button" class="next">Næste</button>
+                            @if (Request.IsAuthenticated)
+                            {
+                                <button type="submit" id="Submitbooking" class="submit">Indsend</button>
+                            }
+                        </div>
+                    </div>
+                }
+            </main>
+        </div>
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <h5>Logget ind som:</h5>
+                <hr />
+                <a href="@Url.Action("Index","Manage")">@User.Identity.Name</a>
+            </div>
+
+            <div class="jumbotron">
+                <h5>Åbningstider:</h5>
+                <hr />
+                @Html.Action("_OpenTimes", "Booking", new SalonHappiness.Models.Opentime())
+            </div>
+            <div class="jumbotron">
+                <h5>Salon Happiness:</h5>
+                <hr />
+                <tr>
+                    <td>Søndergade 42</td>
+                    <br />
+                    <td>9320 Hjallerup</td>
+                </tr>
+                <br /><br />
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d8653.50453506222!2d10.140352!3d57.16482!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x50afd03022edf0c8!2sSalon%20Happiness!5e0!3m2!1sda!2sdk!4v1614681847002!5m2!1sda!2sdk" width="290" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="jumbotron">
+                <a class="text-secondary font-weight-bold" href="@Url.Action("Index","Home")">
+                    <img src="~/Content/img/OnlyLogoBrun.png" /> Tilbage til forsiden
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="betingelser" tabindex="-1" role="dialog" aria-labelledby="betingelser" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Betingelser</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.Action("_Betingelse", "Home", new SalonHappiness.Models.Samtykke())
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Luk</button>
+            </div>
+        </div>
+    </div>
+</div>

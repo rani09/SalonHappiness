@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SalonHappiness.Models.Contract>
+
+@foreach (var item in Model)
+{
+<div class="col-md-4 col-lg-3 mb-4 mb-md-0">
+    <h4 class="section-intro__title">Kontakt Os</h4>
+    <div class="media contact-info">
+        <span class="contact-info__icon">
+            <img src="~/Content/img/OnlyLogoBrun.png" />
+        </span>
+        <div class="media-body">
+            <h3>@item.SalonName</h3>
+            <p>@item.Position</p>
+        </div>
+    </div>
+    <div class="media contact-info">
+        <span class="contact-info__icon"><i class="fa fa-map-marked-alt"></i></span>
+        <div class="media-body">
+            <h3>@item.Address</h3>
+            <p>@item.Postalcode @item.City</p>
+        </div>
+    </div>
+    <div class="media contact-info">
+        <span class="contact-info__icon"><i class="fas fa-phone-square"></i></span>
+        <div class="media-body">
+            <h3><a href="tel:98282477">@item.Phone</a></h3>
+            <p>Mobil: @item.Mobile</p>
+        </div>
+    </div>
+    <div class="media contact-info">
+        <span class="contact-info__icon"><i class="fas fa-envelope-square"></i></span>
+        <div class="media-body">
+            <h3>
+                <a href="mailto:info@salonhappiness.dk">
+                    @item.Email
+                </a>
+            </h3>
+            <p>@item.EmailText</p>
+        </div>
+    </div>
+    <div class="media contact-info">
+        <span class="contact-info__icon"><i class="fas fa-store-alt"></i></span>
+        <div class="media-body">
+            <h3>CVR-nummer</h3>
+            <p>@item.CVR</p>
+        </div>
+    </div>
+</div>
+}

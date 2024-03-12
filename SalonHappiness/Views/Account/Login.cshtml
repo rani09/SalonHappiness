@@ -1,0 +1,81 @@
+﻿@using SalonHappiness.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log ind";
+}
+<section class="section-margin--large pb-xl-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 mb-5 mb-lg-0">
+                <div class="about__content">
+                    <div class="section-intro">
+                        <h4 class="section-intro__title">Log ind for at fortsætte til din konto</h4>
+                        <h2 class="section-intro__subtitle">
+                            Log Ind
+                        </h2>
+                    </div>
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                    <div style="float:right">
+                                        @Html.ActionLink("Glemt din adgangskode?", "ForgotPassword")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Log ind" class="btn btn-success" />
+                                </div>
+                            </div>
+                            <p>
+                                @Html.ActionLink("Registrer dig som en ny bruger", "Register")
+                            </p>
+                        }
+                    </section>
+                    @Html.Partial("_PasswordForgot")
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-2">
+                <div class="about__content">
+                    <div class="section-intro">
+                        <h4 class="section-intro__title">
+                            Eller log ind via sociale medier
+                        </h4>
+                        <h2 class="section-intro__subtitle">
+                            Brug din konto
+                        </h2>
+                    </div>
+                    <section id="socialLoginForm">
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

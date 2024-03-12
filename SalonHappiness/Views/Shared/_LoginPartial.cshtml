@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNet.Identity
+@using SalonHappiness.Models
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <li class="nav-item">
+            @Html.ActionLink("Hej " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+        </li>
+        if (User.IsInRole("Administrator"))
+        {
+            <li class="nav-item">@Html.ActionLink("Admin Panel", "Admin", "Admin", routeValues: null, htmlAttributes: new { @class = "nav-link", @target = "_blank" })</li>
+        }
+        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Manage")">Indstillinger</a></li>
+        <li class="nav-item"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">LOG AF</a></li>
+    }
+}
+else
+{
+    <li class="nav-item">@Html.ActionLink("LOG PÅ", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+    <li class="nav-item">@Html.ActionLink("TILMELD", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+}

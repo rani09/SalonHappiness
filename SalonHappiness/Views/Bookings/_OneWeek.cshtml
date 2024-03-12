@@ -1,0 +1,25 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SalonHappiness.Models.Booking>
+<div style="display: flex; flex-flow: row wrap;">
+    @foreach (var item in Model)
+    {
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Navn:<strong> @Html.DisplayFor(modelItem => item.User.Fname)</strong></h5>
+                <div class="card-text">Dato:<strong> @Html.DisplayFor(modelItem => item.ArrivelDate)</strong></div>
+                <div class="card-text">Tid: <strong>@Html.DisplayFor(modelItem => item.ArrivelTime)</strong></div>
+                <div class="card-text">Status: <strong>@Html.DisplayFor(modelItem => item.Status)</strong></div>
+                <div class="card-text">Oprettet:  <strong>@Html.DisplayFor(modelItem => item.DateCreated)</strong></div>
+                <div class="card-text">Id:  <strong>@Html.DisplayFor(modelItem => item.BookingId)</strong></div>
+                <hr />
+                <i class="fa fa-edit" style="color: #28a745"></i> @Html.ActionLink("rediger", "Edit", new { id = item.BookingId }) |
+                <i class="fa fa-info-circle" style="color: #117a8b"></i> @Html.ActionLink("detaljer", "Details", new { id = item.BookingId }) |
+                <i class="fas fa-trash" style="color: #bd2130"></i> @Html.ActionLink("slet", "Delete", new { id = item.BookingId })
+            </div>
+        </div>
+    }
+
+</div>
+@Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })

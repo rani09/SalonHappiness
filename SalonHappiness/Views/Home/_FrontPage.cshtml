@@ -1,0 +1,21 @@
+﻿﻿@model IEnumerable<SalonHappiness.Models.FrontPage>
+
+@foreach (var item in Model)
+{
+    <div class="col-md-6">
+        <div class="hero-banner__img">
+            @if (item.FrontPageFiles.Any(f => f.FileType == SalonHappiness.Models.FileType.Avatar))
+            {
+                <img class="img-fluid" src="~/FrontPageFile?id=@item.FrontPageFiles.First(f => f.FileType == SalonHappiness.Models.FileType.Avatar).FrontPageFileId" alt="Salon Happiness">
+            }
+        </div>
+    </div>
+    <div class="col-md-6 pl-xl-4">
+        <div class="hero-banner__content">
+            <h1>@item.Title</h1>
+            <h3><i class="fas fa-calendar-alt"></i> Bestil Tid</h3>
+            @Html.Raw(item.Description)
+        </div>
+    </div>
+}
+

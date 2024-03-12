@@ -1,0 +1,160 @@
+﻿@model SalonHappiness.Models.IndexViewModel
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<section class="section-margin--large">
+    <div class="container">
+        <div class="section-intro pb-70px">
+            <h4 class="section-intro__title">Din konto</h4>
+            <h2 class="section-intro__subtitle">
+                Skift dine kontoindstillinger
+            </h2>
+        </div>
+        <div class="row gutters-48 card-columns">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body" style="text-align:center">
+                    <h4 class="card-title">
+                        <i class="fa fa-2x fa-user"></i><br /><br />
+                        @System.Web.HttpContext.Current.User.Identity.Name
+                    </h4>
+                    <p class="card-text">Som brugere kan du foretage dig ændring af adgangskode og se dine bookinger.</p>
+                    <hr />
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            if (User.IsInRole("Administrator"))
+                            {
+                                @Html.ActionLink("Admin Panel", "Admin", "Admin", routeValues: null, htmlAttributes: new { @class = "btn btn-secondary" })
+                                <hr />
+                            }
+
+                            <a class="btn btn-danger" href="javascript:document.getElementById('logoutForm').submit()">LOG AF</a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body" style="text-align:center">
+                    <h4 class="card-title">
+                        <i class="fa fa-2x fa-key"></i><br /><br />
+                        Adgangskode
+                    </h4>
+                    <p class="card-text">Gør din adgangskode stærk, eller skift, hvis en anden kender den.</p>
+                    <hr />
+                    @if (Model.HasPassword)
+                    {
+                        @Html.ActionLink("Skift adgangskode", "ChangePassword", null, new { @class = "btn btn-secondary" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Ændre adgangskode", "SetPassword", null, new { @class = "btn btn-secondary" })
+                    }
+                </div>
+            </div>
+            @*<div class="card" style="width: 18rem;">
+                    <div class="card-body" style="text-align:center">
+                        <h4 class="card-title">Eksterne logins <br /><br /> <i class="fa fa-2x fa-sign-in-alt"></i></h4>
+                        <p class="card-text">Her kan ses, hvis du har brugt eksterne logins, som facebook eller Google. (Du har mulighed for at fjerne din login)</p>
+                        <hr />
+                        [@Model.Logins.Count]
+
+                        @Html.ActionLink("Manage", "ManageLogins", null, new { @class = "btn btn-secondary" })
+
+                    </div>
+                </div>*@
+            <div class="card" style="width: 18rem;">
+                <div class="card-body" style="text-align:center">
+                    <h4 class="card-title"><i class="fa fa-2x fa-list-alt"></i><br /><br /> Bookninger</h4>
+                    <p class="card-text">Se alle dine bookinger. Du kan både foretage dig ny tid, ombooke eller afbooke din tid, helst nogle timer før ankomst.</p>
+                    <hr />
+
+                    @Html.ActionLink("Vis tider", "BookingAccount", "CustomerCenter", null, new { @class = "btn btn-secondary" })
+                </div>
+            </div>
+            @*<div class="card" style="width: 18rem;">
+                    <div class="card-body" style="text-align:center">
+                        <h4 class="card-title">
+                            Mobil nummer <br /><br /> <i class="fa fa-2x fa-mobile"></i>
+                        </h4>
+                        <p class="card-text">Telefonnumre kan bruges som en anden verifikationsfaktor i et tofaktorautentificeringssystem.</p>
+                        <hr />
+                        [@(Model.PhoneNumber ?? "Ingen")]
+                        @if (Model.PhoneNumber != null)
+                        {
+                            <br />
+                            <text>&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;</text>
+                            using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <text><input type="submit" value="Remove" class="btn-link" /></text>
+                            }
+                        }
+                        else
+                        {
+                            <text>&nbsp;&nbsp;@Html.ActionLink("Tilføj", "AddPhoneNumber", null, new { @class = "btn btn-secondary" })</text>
+                        }
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body" style="text-align:center">
+                        <h4 class="card-title">
+                            To-faktor-godkendelse <br /><br /> <i class="fa fa-2x fa-fingerprint"></i>
+                        </h4>
+                        <p class="card-text">To-faktor-godkendelse kan bruges som en anden verifikationsfaktor i et tofaktorautentificeringssystem.</p>
+                        <hr />
+                        @if (Model.TwoFactor)
+                        {
+                            using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <text>[Aktiveret]
+                                    <input type="submit" value="Deaktiver" class="btn btn-secondary" />
+                                </text>
+                            }
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <text>[deaktiveret]
+                                    <input type="submit" value="Aktiver" class="btn btn-secondary" />
+                                </text>
+                            }
+                        }
+                    </div>
+                </div>*@
+        </div>
+    </div>
+
+</section>
+<div>
+
+    @*
+        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+         See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+         Uncomment the following block after you have set up two-factor authentication
+    *@
+
+
+
+
+
+    @*Two-Factor Authentication:
+        <p>
+            There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+            for details on setting up this ASP.NET application to support two-factor authentication.
+        </p>*@
+
+
+</div>

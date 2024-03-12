@@ -1,0 +1,11 @@
+﻿@model IEnumerable<SalonHappiness.Models.Opentime>
+
+@if (Model != null)
+{
+    <tr>
+        @foreach (var open in Model)
+        {
+            <td><strong style="margin-right:30px">@open.Day:</strong> @open.Open - @open.Closed <br /></td>
+        }
+    </tr>
+}

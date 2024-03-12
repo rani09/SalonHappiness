@@ -1,0 +1,35 @@
+﻿@model SalonHappiness.Models.Samtykke
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Samtykke</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SamtykkeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SamtykkeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BetingelseDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BetingelseDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SamtykkeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

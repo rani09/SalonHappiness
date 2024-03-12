@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SalonHappiness.Models.Opentime>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Åbningstider</h2>
+<p>
+    @Html.ActionLink("Opret Ny Åbningstide", "Create", null, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Day)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DayName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Open)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Closed)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Open)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Closed)
+            </td>
+            <td>
+                @Html.ActionLink("Redigere", "Edit", new { id = item.OpentimeId }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Detaljer", "Details", new { id = item.OpentimeId }, new { @class = "btn btn-info" }) |
+                @Html.ActionLink("Slet ", "Delete", new { id = item.OpentimeId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>

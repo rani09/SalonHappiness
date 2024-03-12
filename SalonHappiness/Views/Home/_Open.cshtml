@@ -1,0 +1,36 @@
+﻿﻿@model IEnumerable<SalonHappiness.Models.Opentime>
+<div class="col-lg-5 offset-lg-2">
+    <div class="about__content">
+        <div class="section-intro">
+            <h4 class="section-intro__title">Salon Happiness's</h4>
+            <h2 class="section-intro__subtitle">
+                Åbningstider
+            </h2>
+            <div class="header">
+                <span id="open-status"><small class="openorclosed">STATUS : </small></span>
+            </div>
+        </div>
+        <table class="table opening-hours-table">
+
+            <thead>
+                <tr>
+                    <th>Dag</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var open in Model)
+                {
+                    <tr id="@open.DayName" itemprop="openingHours">
+                        <td>@open.Day</td>
+                        <td class="opens text-center">@open.Open</td>
+                        <td>-</td>
+                        <td class="closes text-center">@open.Closed</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@model SalonHappiness.Models.Advance
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Detaljers</h2>
+
+<div>
+    <h4>Advance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Headline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Headline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubHeadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubHeadline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IconType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IconType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Redigere", "Edit", new { id = Model.AdvanceId }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Tilbage", "Index", null, new { @class = "btn btn-primary" })
+</p>

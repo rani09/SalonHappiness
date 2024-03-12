@@ -1,0 +1,47 @@
+﻿@model SalonHappiness.Models.ExternalLoginConfirmationViewModel
+@{
+    ViewBag.Title = "Tilmeld";
+}
+<h2>@ViewBag.Title.</h2>
+<section class="section-margin--large">
+    <div class="container">
+        <div class="section-intro pb-70px">
+            <h4 class="section-intro__title">Din konto</h4>
+            <h2 class="section-intro__subtitle">
+                Tilknytting af konto
+            </h2>
+        </div>
+        @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <p class="text-info">
+                Du er godkendt med <strong>@ViewBag.LoginProvider</strong>.
+                Indtast venligst et brugernavn for dette websted nedenfor, og klik på knappen Registrer for at afslutte
+                logger ind.
+            </p>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Fname, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Fname, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Fname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-secondary" value="Tilmeld" />
+                </div>
+            </div>
+        }
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

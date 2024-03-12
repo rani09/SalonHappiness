@@ -1,0 +1,59 @@
+﻿@using SalonHappiness.Models
+@model SalonHappiness.ViewModels.HomeIndexViewModel
+@{
+    ViewBag.Title = "Forside";
+}
+
+<section class="hero-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                @foreach (var item in Model.FrontPages)
+                {
+                    <div class="hero-banner__img">
+                        @if (item.FrontPageFiles.Any(f => f.FileType == SalonHappiness.Models.FileType.Avatar))
+                        {
+                            <img class="img-fluid" src="~/FrontPageFile?id=@item.FrontPageFiles.First(f => f.FileType == SalonHappiness.Models.FileType.Avatar).FrontPageFileId" alt="Salon Happiness">
+                        }
+                    </div>
+                }
+            </div>
+            <div class="col-md-6 pl-xl-4">
+                <div class="hero-banner__content">
+                    <h1>@ViewBag.FrontTitle</h1>
+                    @Html.Raw(ViewBag.Description)
+                    @if (Model.OpenOrClosse != null)
+                    {
+                        if (Model.OpenOrClosse.OpenOrLukket == SalonHappiness.Enums.OpenOrCloseType.Open)
+                        {
+                            <a class="button" target="_parent" href="@Url.Action("CreateBooking", "Booking")"><i class="fas fa-calendar-alt"></i> Online booking</a>
+
+                        }
+                        else
+                        {
+                            <main class="main">
+                                <div class="closenow">
+                                    <i style="color:#dc3545" class="fa fa-5x fa-times-circle"></i>
+                                    <h1>@Model.OpenOrClosse.Title</h1>
+                                    <hr />
+                                    <p>@Model.OpenOrClosse.Description</p>
+                                </div>
+                            </main>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-margin--large">
+    <div class="container">
+        <div class="row">
+            @Html.Action("_Price", "Home", new SalonHappiness.Models.Price())
+            @Html.Action("_AboutUs", "Home", new SalonHappiness.Models.AboutUs())
+            @Html.Action("_Open", "Home", new SalonHappiness.Models.Opentime())
+            @Html.Action("_Advance", "Home", new SalonHappiness.Models.Advance())
+        </div>
+    </div>
+</section>

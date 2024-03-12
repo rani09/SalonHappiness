@@ -1,0 +1,113 @@
+﻿@model SalonHappiness.Models.Contract
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Slet </h2>
+
+<h3>Er du sikker på, at du vil slette dette?</h3>
+<div>
+    <h4>Kontakt</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SalonName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalonName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postalcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postalcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailText)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CVR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CVR)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Slet" class="btn btn-danger" /> | @Html.ActionLink("Tilbage", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+</div>

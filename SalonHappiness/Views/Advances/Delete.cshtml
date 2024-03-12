@@ -1,0 +1,61 @@
+﻿@model SalonHappiness.Models.Advance
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Slet</h2>
+
+<h3>Er du sikker på, at du vil slette dette?</h3>
+<div>
+    <h4>Advance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Headline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Headline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubHeadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubHeadline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IconType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IconType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Slet" class="btn btn-danger" /> | @Html.ActionLink("Tilbage", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+</div>

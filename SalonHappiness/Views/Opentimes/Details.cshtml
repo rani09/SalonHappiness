@@ -1,0 +1,51 @@
+﻿@model SalonHappiness.Models.Opentime
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Detaljer</h2>
+
+<div>
+    <h4>Åbningstider</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Day)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Day)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Open)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Open)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Closed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Closed)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Redigere", "Edit", new { id = Model.OpentimeId }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Tilbage", "Index", null, new { @class = "btn btn-primary" })
+</p>

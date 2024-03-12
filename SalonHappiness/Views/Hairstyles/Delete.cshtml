@@ -1,0 +1,76 @@
+﻿@model SalonHappiness.Models.Hairstyle
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Slet</h2>
+
+<h3>Er du sikker på, at du vil slette dette?</h3>
+<div>
+    <h4>Frisurer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Billede
+        </dt>
+        <dd>
+            @if (Model.HairstyleFiles.Any(f => f.FileType == SalonHappiness.Models.FileType.Avatar))
+            {
+                <img src="~/HairstyleFile?id=@Model.HairstyleFiles.First(f => f.FileType ==  SalonHappiness.Models.FileType.Avatar).HairstyleFileId" alt="avatar" width="75" height="85" />
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Slet" class="btn btn-danger" /> | @Html.ActionLink("Tilbage", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+</div>

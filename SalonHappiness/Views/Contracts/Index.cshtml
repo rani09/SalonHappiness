@@ -1,0 +1,98 @@
+﻿@model IEnumerable<SalonHappiness.Models.Contract>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Kontakt</h2>
+
+@if (Model.Count() == 0)
+{
+    <p>
+        @Html.ActionLink("Opret Ny Forside", "Create", null, new { @class = "btn btn-success" })
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SalonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postalcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CVR)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalonName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postalcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CVR)
+            </td>
+            <td>
+                @Html.ActionLink("Redigere", "Edit", new { id = item.ContractId }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Detaljer", "Details", new { id = item.ContractId }, new { @class = "btn btn-info" }) |
+                @Html.ActionLink("Slet ", "Delete", new { id = item.ContractId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>

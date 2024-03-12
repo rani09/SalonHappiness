@@ -1,0 +1,402 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title</title>
+    <!-- Custom fonts for this template-->
+    <link href="~/Content/Admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    @*<link href="~/Content/Admin/css/sb-admin-2.min.css" rel="stylesheet" />*@
+    <link href="~/Content/Admin/css/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/Content/Admin/css/admin_all.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: "500",
+            plugins: 'template searchreplace autolink directionality visualblocks visualchars fullscreen link anchor advlist lists textcolor wordcount contextmenu colorpicker textpattern code image',
+            toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | fontselect | fontsizeselect | link | styleselect alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat | code | image',
+            font_formats: 'Josefin Sans;Lato=lato;Andale Mono=andale mono,times;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier;Georgia=georgia,palatino;Helvetica=helvetica;Impact=impact,chicago;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco;Times New Roman=times new roman,times;Trebuchet MS=trebuchet ms,geneva;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings,zapf dingbats',
+            fontsize_formats: '9pt 10pt 11pt 12pt 13pt 14pt 15pt 16pt 17pt 18pt 19pt 20pt 21pt 22pt 23pt 24pt 25pt 26pt 27pt 28pt 29pt 30pt 31pt 32pt 33pt 34pt 35pt 36pt 37pt 38pt 39pt 40pt 42pt 43pt 44pt 45pt 46pt 47pt 48pt 49pt 50pt 51pt 52pt 53pt 54pt 55pt 56pt 57pt 58pt 59pt 60pt 61pt 62pt 63pt 64pt 65pt 66pt 67pt 68pt 69pt 70pt 71pt 72pt',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            content_css: "~/Content/Admin/css/tinymce.css",
+        });
+    </script>
+</head>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+            <!-- Sidebar - Brand -->
+            <li>
+                <div class="sidebar-brand d-flex align-items-center justify-content-center">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <img src="~/Content/img/OnlyLogo.png" />
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Salon Happiness</div>
+                </div>
+            </li>
+            <!-- Divider -->
+            <li>
+                <hr class="sidebar-divider my-0">
+            </li>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="/Admin/Admin">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Admin</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/Bookings/Index">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Bestillinger</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <li>
+                <hr class="sidebar-divider">
+            </li>
+            <!-- Heading -->
+            <li class="sidebar-heading">
+                Forskellige sider
+            </li>
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="/FrontPages/Index">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Forside</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Hairstyles/Index">
+                    <i class="fas fa-fw fa-image"></i>
+                    <span>Frisurer</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Prices/Index">
+                    <i class="fas fa-fw fa-money-bill-alt"></i>
+                    <span>Priser</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/Advances/Index">
+                    <i class="fas fa-fw fa-clipboard-list"></i>
+                    <span>Advance</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Teams/Index">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Team</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Services/Index">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/AboutUs/Index">
+                    <i class="fas fa-fw fa-info-circle"></i>
+                    <span>Om os</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Contracts/Index">
+                    <i class="fas fa-fw fa-envelope"></i>
+                    <span>Kontakt</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","OpenTimes")">
+                    <i class="fas fa-fw fa-lock-open"></i>
+                    <span>Åben & Lukke tider</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/OpenOrClosses/Index">
+                    <i class="fas fa-fw fa-store-alt"></i>
+                    <span>Åben eller Lukket</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","Samtykkes")">
+                    <i class="fas fa-fw fa-clipboard"></i>
+                    <span>Samtykke</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Home/Index" target="_blank">
+                    <i class="fas fa-fw fa-arrow-left"></i>
+                    <span>Salon Happiness Forside</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <div id="listBookings">
+                        @using (Ajax.BeginForm("GetBookings", "Bookings", new AjaxOptions
+                        {
+
+                            InsertionMode = InsertionMode.ReplaceWith,
+                            UpdateTargetId = "listBookings",
+                            LoadingElementId = "loader",
+                            LoadingElementDuration = 1000
+
+                        }))
+                        {
+                            string query = "";
+                            <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="width: 100rem;">
+                                <div class="input-group">
+                                    @Html.EditorFor(e => query, new { htmlAttributes = new { @class = "form-control bg-light border-0 small", placeholder = "Søg efter bookinger", @arialabel = "Search", @ariadescribedby = "basic-addon2" } })
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <span id="loader" style="display:none;"><i class="fa fa-spinner fa-pulse"></i></span>
+                        }
+                    </div>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Alerts -->
+                        <!-- Nav Item - Messages -->
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Alla</span>
+                                <img class="img-profile rounded-circle" width="60" height="60" src="~/Content/img/alla.png">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="@Url.Action("Index", "Manage")">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Log ud
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © Salon Happiness @DateTime.Now.Year</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top" style="display: none;">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Klar til at forlade?
+                    </h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Vælg "Log af" nedenfor, hvis du er klar til at afslutte din nuværende session.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annullere</button>
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <a class="btn btn-primary" href="javascript:document.getElementById('logoutForm').submit()">LOG AF</a>}
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Content/Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Content/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Content/Admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    @*<script src="~/Content/Admin/vendor/chart.js/Chart.min.js"></script>*@
+
+    <!-- Page level custom scripts -->
+    @*<script src="~/Content/Admin/js/demo/chart-area-demo.js"></script>
+        <script src="~/Content/Admin/js/demo/chart-pie-demo.js"></script>*@
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>
+    <script type="text/javascript">
+
+        //console.clear();
+
+        var schedule_week = ["09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00",
+            "11:15", "11:30", "11:45", "12:00", "12:15", "12:30", "12:45", "13:00", "13:15",
+            "13:30", "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30",
+            "15:45", "16:00", "16:15", "16:30", "16:45", "17:00", "17:15", "17:30"];
+
+
+        var schedule_saturday = ["09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00",
+            "11:15", "11:30", "11:45", "12:00", "12:15", "12:30", "12:45", "13:00", "13:15",
+            "13:30", "13:45", "14:00"];
+
+        var prev_dayNum;
+        var schedule_used = schedule_week;  // Use the week schedule by default.
+
+        // Function to initialise the time picker input.
+        function initTime() {
+            $('#timePicker').datetimepicker({
+                inline: true,
+                datepicker: false,
+                format: 'H:i',
+                step: 15,
+                allowTimes: schedule_used
+            });
+        }
+        // On load time initialisation.
+        initTime();
+        // Initialise the date input.
+        $('#datePicker').datetimepicker({
+            format: 'd/m/Y',
+            disabledWeekDays: [0],
+            step: 15,
+            lang: 'da',
+            timepicker: false,
+            dayOfWeekStart: 1,
+            inline: true,
+            minDate: 0,
+            // On change callback
+            onChangeDateTime: function (dp, $input) {
+
+                var dateVal = $input.val();
+                var timeVal = $('#timePicker').val();
+                //console.log(dateVal + " - " + (timeVal || "No Time"));
+
+                // Because of the d/m/Y format, have to process the date a bit to get the day number.
+                val = dateVal.split("/");
+                var dayNum = new Date(val[2] + "/" + val[1] + "/" + val[0]).getDay();
+                //console.log("dayNum: " + dayNum);
+
+                // if dayNum is zero (sunday), use sunday schedule... Else use the week schedule.
+                schedule_used = (dayNum == 6) ? schedule_saturday : schedule_week;
+
+                // If the dayNum changed.
+                if (prev_dayNum != dayNum) {
+                    //console.log("Changed day!");
+                    // Re-initialise datetimepicker
+                    $('#timePicker').datetimepicker("destroy");
+                    initTime();
+
+                    // If the actual time value is not in schedule.
+                    if ($.inArray(timeVal, schedule_used) == -1) {
+                        //console.log("Wrong time!");
+                        // Clear the time value.
+                        $('#timePicker').val("");
+                        // Focus the time input so it's obvious the user has to re-select a time.
+                        $('#timePicker').focus();
+                    }
+                }
+            }
+
+        });
+
+    </script>
+</body>
+</html>

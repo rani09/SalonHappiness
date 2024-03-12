@@ -1,0 +1,88 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SalonHappiness.Models.Booking>
+@{
+    ViewBag.Title = "Søger...";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Søgeresultater</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Søgninger ...
+                </h6>
+            </div>
+            <div class="card-body">
+                @if (Model.Count() > 0)
+                {
+                <div class="row">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>
+                                Brugernavn
+                            </th>
+                            <th>
+                                Id:
+                            </th>
+                            <th>
+                                Dato
+                            </th>
+                            <th>
+                                Tid
+                            </th>
+                            <th>
+                                Oprettet
+                            </th>
+                            <th>
+                                Status
+                            </th>
+
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.Fname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BookingId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ArrivelDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ArrivelTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateCreated)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    <i class="fas fa-edit" style="color: #28a745"></i> @Html.ActionLink("Redigere", "Edit", new { id = item.BookingId }) |
+                                    <i class="fas fa-info-circle" style="color: #117a8b"></i> @Html.ActionLink("Detaljer", "Details", new { id = item.BookingId }) |
+                                    <i class="fas fa-trash" style="color: #bd2130"></i> @Html.ActionLink("Slet", "Delete", new { id = item.BookingId })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    @Html.PagedListPager(Model, Page => Url.Action("GetBookings", new { Page }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
+
+                </div>
+                }
+                else
+                {
+                    <h1>Igen data på det søgte</h1>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

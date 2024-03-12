@@ -1,0 +1,52 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SalonHappiness.Models.Booking>
+@{
+    ViewBag.Title = "Booking tider";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="section-padding--large bg-white">
+    <div class="container">
+        <div class="section-intro pb-70px">
+            <h4 class="section-intro__title">Oversigt over</h4>
+            <h2 class="section-intro__subtitle">Dine tider hos Salon Happiness</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Action("_CustommerMenu", "CustomerCenter", new SalonHappiness.Models.Booking())
+            </div>
+            <div class="col-md-9">
+                <table class="table table-striped table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Brugernavn</th>
+                            <th>Dato</th>
+                            <th>Tid</th>
+                            <th>Status</th>
+                            <th>Oprettet</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.User.Fname)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ArrivelDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ArrivelTime)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                <td>@Html.DisplayFor(modelItem => item.DateCreated)</td>
+
+                                @if (item.ArrivelDate == DateTime.Today || item.ArrivelDate > DateTime.Now)
+                                {
+                                    <td><a class="btn btn-primary" href="@Url.Action("BooketTime", "CustomerCenter")">vis</a></td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @Html.PagedListPager(Model, Page => Url.Action("BookingAccount", new { Page }), new PagedListRenderOptions() { DisplayPageCountAndCurrentLocation = true })
+            </div>
+        </div>
+    </div>
+</section>

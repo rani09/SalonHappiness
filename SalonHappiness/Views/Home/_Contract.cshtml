@@ -1,0 +1,12 @@
+﻿@model IEnumerable<SalonHappiness.Models.Contract>
+@foreach (var item in Model)
+{
+    <ul>
+        <li><p><i class="fas fa-map-marked-alt"></i> @item.Address</p></li>
+        <li><p><i class="fas fa-map-signs"></i>  @item.Postalcode @item.City</p></li>
+        <li><p><i class="fas fa-phone"></i> @item.Phone</p></li>
+        <li><p><i class="fas fa-mobile-alt"></i> @item.Mobile</p></li>
+        <li><p><i class="fas fa-envelope"></i> @item.Email</li>
+        <li><p><i class="fas fa-store-alt"></i> CVR.: @item.CVR</li>
+    </ul>
+}

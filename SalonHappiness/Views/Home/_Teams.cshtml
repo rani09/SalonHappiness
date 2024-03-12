@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SalonHappiness.Models.Team>
+<section class="section-padding--large bg-soapstone">
+    <div class="container">
+        <div class="section-intro pb-70px">
+            <h4 class="section-intro__title">Vores team</h4>
+            <h2 class="section-intro__subtitle">Mød vores team</h2>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <div class="card card-team">
+                        <div class="card-team__img">
+                            @if (item.TeamFiles.Any(f => f.FileType == SalonHappiness.Models.FileType.Avatar))
+                            {
+                                <img class="card-img rounded-0" src="~/TeamFile?id=@item.TeamFiles.First(f => f.FileType == SalonHappiness.Models.FileType.Avatar).TeamFileId" alt="">
+                            }
+                        </div>
+                        <div class="card-team__position">
+                            <div class="card-footer d-flex justify-content-between align-items-center">
+                                <div class="card-team__bio">
+                                    <h4><a href="#">@item.Name</a></h4>
+                                    <p>@item.Title</p>
+                                </div>
+                                <ul class="card-team__social">
+                                    @if (item.Facebook != null)
+                                    {
+                                        <li><a href="@item.Facebook" target="_blank"><i class="ti-facebook"></i></a></li>
+                                    }
+                                    @if (item.Twiter != null)
+                                    {
+                                        <li><a href="@item.Twiter" target="_blank"><i class="ti-twitter-alt"></i></a></li>
+                                    }
+                                    @if (item.Instagram != null)
+                                    {
+                                        <li><a href="@item.Instagram" target="_blank"><i class="ti-instagram"></i></a></li>
+                                    }
+                                    @if (item.Youtube != null)
+                                    {
+                                        <li><a href="@item.Youtube" target="_blank"><i class="ti-youtube"></i></a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

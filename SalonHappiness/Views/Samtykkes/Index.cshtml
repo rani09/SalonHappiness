@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SalonHappiness.Models.Samtykke>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SamtykkeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BetingelseDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SamtykkeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BetingelseDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SamtykkeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SamtykkeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SamtykkeId })
+        </td>
+    </tr>
+}
+
+</table>

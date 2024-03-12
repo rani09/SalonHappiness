@@ -1,0 +1,66 @@
+﻿@model SalonHappiness.Models.Booking
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Slet</h2>
+
+<h3>Er du sikker på, at du vil slette dette?</h3>
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Fname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Fname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArrivelDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArrivelDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArrivelTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArrivelTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Slet" class="btn btn-danger" /> |
+            @Html.ActionLink("Tilbage", "Index", null, new { @class = "btn btn-primary" })
+        </div>
+    }
+</div>

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "500 Server fejl";
+    Layout = "~/Views/Shared/_Error.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <section class="page_404">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class=" text-center">
+                            <div class="four_zero_four_bg">
+                            </div>
+                            <div class="contant_box_404">
+                                <h1 style="font-size:100px" class="text-center ">500</h1>
+                                <h3>Ups! Noget gik galt!</h3>
+                            </div>
+                            <p>Hjælp os med at forbedre din oplevelse ved at sende en fejlrappor til info@salonhappiness.dk</p>
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-success">Tilbage til forsiden</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

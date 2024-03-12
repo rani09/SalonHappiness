@@ -1,0 +1,15 @@
+﻿@model IEnumerable<SalonHappiness.Models.Booking>
+@using SalonHappiness.Models;
+@using Microsoft.AspNet.Identity;
+@{
+    var userId = User.Identity.GetUserId();
+}
+<div class="list-group">
+    <div class="list-group-item list-group-item-action active" aria-current="true">
+        Hej, @User.Identity.Name
+    </div>
+    <a href="@Url.Action("CreateBooking","Booking")" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-success text-light">Booke tid <i class="fas fa-plus-circle"></i></a>
+    <a href="@Url.Action("BookingAccount","CustomerCenter")" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-soapstone">Alle tider <span class="badge rounded-pill bg-primary">@Model.Count()</span></a>
+    <a href="@Url.Action("BooketTime","CustomerCenter")" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-soapstone">Booket tider <span class="badge rounded-pill bg-primary">@Model.Where(x => x.ArrivelDate == DateTime.Today || x.ArrivelDate > DateTime.Now).Count()</span></a>
+    <a href="@Url.Action("Index","Manage")" class="list-group-item list-group-item-action d-flex justify-content-start align-items-center bg-secondary text-light"><i class="fas fa-arrow-circle-left"></i> Tilbage</a>
+</div>

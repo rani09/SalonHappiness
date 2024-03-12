@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SalonHappiness.Models.Hairstyle>
+
+<section class="section-margin--large">
+    <div class="container">
+        <div class="section-intro pb-70px">
+            <div class="section-intro">
+                <h4 class="section-intro__title">Frisurer</h4>
+                <h2 class="section-intro__subtitle">Se styles på nogle af vores<span class="d-block">frisurer</span></h2>
+            </div>
+        </div>
+        <div class="row gutters-48">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <div class="card card-team">
+                        <div class="card-team__img">
+                            @if (item.HairstyleFiles.Any(f => f.FileType == SalonHappiness.Models.FileType.Avatar))
+                            {
+                                <img src="~/HairstyleFile?id=@item.HairstyleFiles.First(f => f.FileType == SalonHappiness.Models.FileType.Avatar).HairstyleFileId" class="card-img rounded-0" alt="">
+                            }
+                        </div>
+                        <div class="card-team__position">
+                            <div class="card-footer d-flex justify-content-between align-items-center">
+                                <div class="card-team__bio">
+                                    <h4>@item.Name</h4>
+                                    <p>@item.Description</p>
+                                    <br />
+                                    <ul class="card-team__social">
+                                        <li><i class="fa fa-city"></i> @item.City</li>
+                                        <li><i class="fa fa-calendar-alt"></i> @item.DateCreated.ToString("dd/MM/yyyy")</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+

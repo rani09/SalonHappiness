@@ -1,0 +1,63 @@
+﻿@model SalonHappiness.Models.Price
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Detaljer</h2>
+
+<div>
+    <h4>Priser</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pricing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pricing)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountActive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Redigere", "Edit", new { id = Model.PriceId }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Tilbage", "Index", null, new { @class = "btn btn-primary" })
+</p>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SalonHappiness.Models.Advance>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Advance</h2>
+<p>
+    @Html.ActionLink("Opret Ny Advance", "Create", null, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Headline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubHeadline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IconType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Headline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubHeadline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IconType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.ActionLink("Redigere", "Edit", new { id = item.AdvanceId }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Detaljer", "Details", new { id = item.AdvanceId }, new { @class = "btn btn-info" }) |
+                @Html.ActionLink("Slet ", "Delete", new { id = item.AdvanceId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

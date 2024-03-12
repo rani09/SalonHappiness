@@ -1,0 +1,27 @@
+﻿@model IEnumerable<SalonHappiness.Models.Price>
+@foreach (var item in Model)
+{
+    <div class="col-lg-3 col-md-6 mb-5 pb-xl-4">
+        <div class="card text-center card-pricing border-style">
+ 
+            <div class="card-pricing__header">
+                @if (item.DiscountActive)
+                {
+                    <div class="price-container">
+                        <div class="price">
+                            <span class="number">@item.DiscountPrice</span>
+                            <span class="label">@item.DiscountTitle</span>
+
+                        </div>
+                    </div>
+                }
+                <h3>@item.Title</h3>
+            </div>
+            <div class="card-pricing__price">
+                <h2>@item.Pricing.ToString("0.##") Kr.</h2>
+            </div>
+
+        </div>
+    </div>
+}
+

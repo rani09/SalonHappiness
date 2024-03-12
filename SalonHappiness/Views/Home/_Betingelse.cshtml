@@ -1,0 +1,6 @@
+﻿@model IEnumerable<SalonHappiness.Models.Samtykke>
+
+@foreach (var item in Model)
+{
+    @Html.Raw(item.BetingelseDescription)
+}

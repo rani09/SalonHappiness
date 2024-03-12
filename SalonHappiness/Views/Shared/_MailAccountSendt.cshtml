@@ -1,0 +1,17 @@
+﻿@{
+    SalonHappiness.Extensions.Helper.Notification notify = (SalonHappiness.Extensions.Helper.Notification)TempData["mailaccountsendt"];
+    TempData["mailaccountsendt"] = null;
+}
+@if (notify != null)
+{
+    <div id="@notify.Status.ToString()" class="alert alert-@notify.Status.ToString().ToLower() alert-dismissible" role="alert" style="position:relative; z-index:1">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="alert-heading"><i class="fa fa-check-circle"></i> @notify.Title!</h4>
+        <p><strong>@notify.Message</strong></p>
+        <hr />
+        <h6>@notify.MessageEmail</h6>
+    </div>
+}
+

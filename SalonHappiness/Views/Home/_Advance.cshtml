@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SalonHappiness.Models.Advance>
+
+<section class="section-margin--large">
+    <div class="container">
+        <div class="section-intro pb-70px">
+            <h4 class="section-intro__title">Advance Feature</h4>
+            <h2 class="section-intro__subtitle">
+                Our Strength Is Your
+                <span class="d-block">   Smart beauty</span>
+            </h2>
+        </div>
+
+        <div class="row gutters-48">
+            @foreach (var item in Model.Where(x => x.Active))
+            {
+                <div class="col-md-6 col-xl-3 mb-5 mb-xl-0">
+                    <div class="card text-center card-feature border-style">
+                        <div class="card-feature__icon"><i class="flaticon-@item.IconType.ToString()"></i></div>
+                        <h3 class="card-feature__title">@item.Headline</h3>
+                        <p>@item.SubHeadline</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

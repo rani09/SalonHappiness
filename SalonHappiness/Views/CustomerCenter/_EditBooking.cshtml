@@ -1,0 +1,265 @@
+﻿@model SalonHappiness.Models.Booking
+
+<form id="myFormPost">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BookingId)
+        @Html.HiddenFor(model => model.UserId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArrivelDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArrivelDate, new { htmlAttributes = new { @class = "form-control", @id = "datePicker" } })
+                @Html.ValidationMessageFor(model => model.ArrivelDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArrivelTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArrivelTime, new { htmlAttributes = new { @class = "form-control", @id = "timePicker" } })
+                @Html.ValidationMessageFor(model => model.ArrivelTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <ul class="flex-container-box">
+                @{
+
+
+                    List<SalonHappiness.ViewModels.BookingServiceVM> bookingServiceVMs = ViewBag.Services;
+                    foreach (var ser in bookingServiceVMs)
+                    {
+                        <li class="main-box">
+
+                            <input type="checkbox" name="@ser.Title" value="@ser.Id" @(Html.Raw(ser.Assigned ? "checked=\"checked\"" : "")) />
+                            @ser.Title
+                            <br />
+                            @Html.Raw(ser.Description) @ser.Time @ser.Price
+                        </li>
+                    }
+                }
+            </ul>
+            @*<ul class="flex-container-box">
+                    @for (int i = 0; i < Model.Services.Count(); i++)
+                    {
+                        <li class="main-box">
+                            <span style="display:flex; flex-flow: row wrap; justify-content:space-between">
+                                <span id="check_container_div">
+                                    @Html.HiddenFor(x => Model.Services[i].ServiceId)
+                                    @Html.CheckBoxFor(x => Model.Services[i].IsActive, new { @class = "checkbox-validate", @id = Model.Services[i].Title })
+                                    @Html.DisplayFor(x => Model.Services[i].Title)
+                                </span>
+                                <span>@Model.Services[i].Price DKK</span>
+                                <span>@Model.Services[i].Time min.</span>
+                            </span>
+                            @Html.Raw(Model.Services[i].Description)
+                        </li>
+                    }
+                </ul>*@
+            <span class="error-holder"></span>
+        </div>
+        <div class="form-group">
+            <input id="btnSubmit" type="submit" value="Gem" class="btn btn-success btn-block" />
+        </div>
+        <div style="text-align:center;display:none" id="loaderDiv">
+            <img src="~/Content/img/salonLoading.gif" width="150" />
+        </div>
+    </div>
+</form>
+
+
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            $("#loaderDiv").show();
+            var myformdata = $("#myFormPost").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/CustomerCenter/EditBooking",
+                data: myformdata,
+                success: function () {
+                    $("#loaderDiv").hide();
+                    $("#myModal").modal("hide");
+                    //window.location.href = "/CustomerCenter/BooketTime";
+                }
+            })
+        })
+    })
+</script>
+<script type="text/javascript">
+
+    //console.clear();
+
+    var schedule_week = ["09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00",
+        "11:15", "11:30", "11:45", "12:00", "12:15", "12:30", "12:45", "13:00", "13:15",
+        "13:30", "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30",
+        "15:45", "16:00", "16:15", "16:30", "16:45", "17:00", "17:15", "17:30"];
+
+
+    var schedule_saturday = ["09:00", "09:15", "09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00",
+        "11:15", "11:30", "11:45", "12:00", "12:15", "12:30", "12:45", "13:00", "13:15",
+        "13:30", "13:45", "14:00"];
+
+    var prev_dayNum;
+    var schedule_used = schedule_week;  // Use the week schedule by default.
+
+    // Function to initialise the time picker input.
+    function initTime() {
+        $('#timePicker').datetimepicker({
+
+            format: 'H:i',
+            datepicker: false,
+            step: 15,
+            allowTimes: schedule_used
+        });
+    }
+    // On load time initialisation.
+    initTime();
+    $('#datePicker').datetimepicker({
+
+        format: 'd/m/Y',
+        disabledWeekDays: [0],
+        step: 15,
+        lang: 'da',
+        minDate: 0,
+        validateOnBlur: false,
+        timepicker: false,
+        dayOfWeekStart: 1,
+
+        // On change callback
+        onChangeDateTime: function (dp, $input) {
+
+            var dateVal = $input.val();
+            var timeVal = $('#timePicker').val();
+            //console.log(dateVal + " - " + (timeVal || "No Time"));
+
+            // Because of the d/m/Y format, have to process the date a bit to get the day number.
+            val = dateVal.split("/");
+            var dayNum = new Date(val[2] + "/" + val[1] + "/" + val[0]).getDay();
+            //console.log("dayNum: " + dayNum);
+
+            // if dayNum is zero (sunday), use sunday schedule... Else use the week schedule.
+            schedule_used = (dayNum == 6) ? schedule_saturday : schedule_week;
+
+            // If the dayNum changed.
+            if (prev_dayNum != dayNum) {
+                //console.log("Changed day!");
+                // Re-initialise datetimepicker
+                $('#timePicker').datetimepicker("destroy");
+                initTime();
+
+                // If the actual time value is not in schedule.
+                if ($.inArray(timeVal, schedule_used) == -1) {
+                    //console.log("Wrong time!");
+                    // Clear the time value.
+                    $('#timePicker').val("");
+                    // Focus the time input so it's obvious the user has to re-select a time.
+                    $('#timePicker').focus();
+                }
+            }
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.validator.addMethod('ArrivelDate', function (value, element, param) {
+            var dateRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+            return value.match(dateRegex);
+        }, 'Indtast venligst en gyldig dato!');
+
+        $.validator.addMethod('ArrivelTime', function (value, element, param) {
+            var timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+            return value.match(timeRegex);
+        }, 'Indtast venligst en gyldig tid!');
+
+        $.validator.addMethod("checkboxRequired", function (val, element, param) {
+            return param && $(param).is(':checked')
+        }, "Vælg mindst 1 af services");
+
+        jQuery.validator.addClassRules('checkbox-validate', {
+            checkboxRequired: '.checkbox-validate'
+        });
+        var val = {
+            // Specify validation rules
+            rules: {
+                ArrivelDate:
+                {
+                    required: true
+                },
+                ArrivelTime:
+                {
+                    required: true
+                }
+            },
+            // Specify validation error messages
+            messages: {
+                ArrivelDate:
+                {
+                    required: "vælg en dato fra kalender"
+                },
+                ArrivelTime:
+                {
+                    required: "vælg en tid fra listen"
+                }
+            },
+            errorPlacement: function (error, element) {
+                if (element.hasClass('checkbox-validate')) {
+                    element.closest('.form-group').find('.error-holder').html(error)
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        }
+        $("#myForm").multiStepForm({
+
+            validations: val,
+        }
+        ).navigateTo(0);
+    });
+    function myFunction() {
+
+        var x = document.getElementById("datePicker");
+        var div = document.getElementById('date-result');
+        div.innerHTML = x.value;
+
+        var y = document.getElementById("timePicker");
+        var t = document.getElementById('time-result');
+        t.innerHTML = y.value;
+    }
+
+    function updateTextArea() {
+        var allVals = [];
+        $('#check_container_div :checked').each(function () {
+            allVals.push($(this).attr('id'));
+        });
+        $('#service-result').val(allVals);
+    }
+    $(function () {
+        $('#check_container_div input').click(updateTextArea);
+        updateTextArea();
+    });
+
+    var arr = $('#check_container_div :checked').map(function () {
+        return $(this).val();
+    });
+    $('#service-result').val(arr + "\n" + arr[0] + "\n" + arr.length);
+
+
+    $('#check_container_div :checkbox').on('change', function () {
+        var result = "";
+        var how_many_checked = $('#check_container_div :checkbox:checked').length;
+
+        $('#check_container_div :checked').each(function (index, value) {
+            result += $(this).attr('id') + "\n";
+
+        });
+        $('#service-result').val(result);
+    });
+
+</script>
+<style>
+    .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+        width: 305px;
+    }
+</style>

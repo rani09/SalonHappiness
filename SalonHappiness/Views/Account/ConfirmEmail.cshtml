@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Bekræft Email";
+}
+
+<h2>@ViewBag.Title.</h2>
+<section class="section-margin--large">
+    <div class="container">
+        <div class="section-intro pb-70px">
+            <h4 class="section-intro__title">Din konto</h4>
+            <h2 class="section-intro__subtitle">
+                Bekræftelse af Email
+            </h2>
+        </div>
+        <div>
+            <p>
+                Tak for din bekræftelse af din e-mail. Vær venlig @Html.ActionLink("Klik her for at logge ind", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+            </p>
+        </div>
+    </div>
+</section>

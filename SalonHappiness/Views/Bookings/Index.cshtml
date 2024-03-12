@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SalonHappiness.Models.Booking>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Bestillinger</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-circle" style="color: #28a745"></i> Idag
+                </h6>
+            </div>
+            <div class="card-body">
+                <p>
+                    @Html.ActionLink("Opret ny tid", "Create", null, new { @class = "btn btn-success" })
+                </p>
+                <div style="display: flex; flex-flow: row wrap;">
+                    @foreach (var item in Model)
+                    {
+
+                        string style = DateTime.Now.CompareTo(item.ArrivelTime) == 1 && DateTime.Now.Subtract(item.ArrivelTime).TotalMilliseconds > 15 * 60 * 1000 ? "" : "row-color cell circle pulse";
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h4 class="card-title">Navn:<strong> @Html.DisplayFor(modelItem => item.User.Fname)</strong><span class="@style fa-pull-right"></span></h4>
+                                <div class="card-text">Dato: <strong> @Html.DisplayFor(modelItem => item.ArrivelDate)</strong></div>
+                                <div class="card-text">Tid: <strong>@Html.DisplayFor(modelItem => item.ArrivelTime)</strong></div>
+                                <div class="card-text">Status: <strong>@Html.DisplayFor(modelItem => item.Status)</strong></div>
+                                <div class="card-text">Oprettet:  <strong>@Html.DisplayFor(modelItem => item.DateCreated)</strong></div>
+                                <div class="card-text">Id:  <strong>@Html.DisplayFor(modelItem => item.BookingId)</strong></div>
+                                @ViewBag.ServiceList
+                                <hr />
+                                <i class="fa fa-edit" style="color: #28a745"></i> @Html.ActionLink("rediger", "Edit", new { id = item.BookingId }) |
+                                <i class="fa fa-info-circle" style="color: #117a8b"></i> @Html.ActionLink("detaljer", "Details", new { id = item.BookingId }) |
+                                <i class="fas fa-trash" style="color: #bd2130"></i> @Html.ActionLink("slet", "Delete", new { id = item.BookingId })
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-circle" style="color: #ffc107"></i> Kommende tider
+                </h6>
+            </div>
+            <div class="card-body">
+                @Html.Action("_OneWeek", "Bookings", new SalonHappiness.Models.Booking())
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-circle" style="color: #dc3545"></i> Afsluttet tider
+                </h6>
+            </div>
+            <div class="card-body">
+                @Html.Action("_Finished", "Bookings", new SalonHappiness.Models.Booking())
+            </div>
+        </div>
+    </div>
+</div>
